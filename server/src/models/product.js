@@ -5,11 +5,25 @@ const productSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
+      trim: true,
+    },
+
+    barcode: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
     },
 
     brand: {
       type: String,
       default: "",
+    },
+
+    price: {
+      type: Number,
+      required: [true, "Price is required"],
+      min: [0.01, "Price must be greater than 0"],
     },
 
     ingredients: {
@@ -24,16 +38,21 @@ const productSchema = new mongoose.Schema(
 
     expiryDate: {
       type: Date,
-      default: null,
+      required: [true, "Expiry date is required"],
     },
 
     harmfulIngredients: {
       type: [String],
       default: [],
     },
+    harmfulIngredients: {
+      type: [String],
+      default: [],
+    },
+
     notSuitableFor: {
-        type: [String],
-        default: [],
+      type: [String],
+      default: [],
     },
   },
   { timestamps: true }
